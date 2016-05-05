@@ -10,6 +10,7 @@ Part of DCC++ BASE STATION for the Arduino
 #include "DCCpp_Uno.h"
 #include "PacketRegister.h"
 #include "Comm.h"
+#include "Railcom.h"
 
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -33,6 +34,8 @@ RegisterList::RegisterList(int maxNumRegs){
   nextReg=NULL;
   currentBit=0;
   nRepeat=0;
+  railcomEnabled= false;
+  cutoutState = CUTOUT_BEFORE;
 } // RegisterList::RegisterList
   
 ///////////////////////////////////////////////////////////////////////////////
@@ -451,6 +454,21 @@ void RegisterList::writeCVBitMain(char *s) volatile{
   loadPacket(0,b,nB,4);
   
 } // RegisterList::writeCVBitMain()
+
+///////////////////////////////////////////////////////////////////////////////
+
+void RegisterList::enableRailcom() {
+  railcomEnabled = true;
+}
+
+void RegisterList::disableRailcom() {
+  railcomEnabled = false;
+}
+
+boolean  RegisterList::isRailcomEnabled() {
+  return railcomEnabled;
+}
+
 
 ///////////////////////////////////////////////////////////////////////////////
 

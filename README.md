@@ -1,3 +1,11 @@
+# What's this fork of DCC++
+### Please, do not use this fork of DCC++. This is pre-Alpha concept.
+Visit and use the real original
+[DCC++ BaseStation](https://github.com/DccPlusPlus/BaseStation)
+
+For more info on the idea and intention of this fork, see [./Railcom.md]
+
+
 What’s DCC++
 ------------
 

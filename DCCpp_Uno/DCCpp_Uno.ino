@@ -177,6 +177,7 @@ DCC++ BASE STATION is configured through the Config.h file that contains all use
 #include "EEStore.h"
 #include "Config.h"
 #include "Comm.h"
+#include "Railcom.h"
 
 void showConfiguration();
 
@@ -424,6 +425,16 @@ void setup(){
 
 #define DCC_SIGNAL(R,N) \
   if(R.currentBit==R.currentReg->activePacket->nBits){    /* IF no more bits in this DCC Packet */ \
+    if(R.railcomEnabled) { \
+      if((R.cutoutState == CUTOUT_BEFORE) || (R.cutoutState == CUTOUT_ACTIVE)) { \
+        /* Enable External Interrupts for RailCom */ \
+        return; \
+      } \
+      else if(R.cutoutState == CUTOUT_DONE) { \
+        /* Disable External Interrupts */     \
+        R.cutoutState = CUTOUT_BEFORE; \
+      } \
+    } \
     R.currentBit=0;                                       /*   reset current bit pointer and determine which Register and Packet to process next--- */ \   
     if(R.nRepeat>0 && R.currentReg==R.reg){               /*   IF current Register is first Register AND should be repeated */ \
       R.nRepeat--;                                        /*     decrement repeat count; result is this same Packet will be repeated */ \

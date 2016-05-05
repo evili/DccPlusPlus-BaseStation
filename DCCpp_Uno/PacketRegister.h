@@ -44,6 +44,8 @@ struct RegisterList{
   byte currentBit;
   byte nRepeat;
   int *speedTable;
+  byte  cutoutState;
+  boolean railcomEnabled;
   static byte idlePacket[];
   static byte resetPacket[];
   static byte bitMask[];
@@ -59,6 +61,9 @@ struct RegisterList{
   void writeCVByteMain(char *) volatile;
   void writeCVBitMain(char *s) volatile;  
   void printPacket(int, byte *, int, int) volatile;
+  void enableRailcom();
+  void disableRailcom();
+  boolean isRailcomEnabled();
 };
 
 #endif
